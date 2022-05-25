@@ -1,8 +1,30 @@
-import csv
+import pandas as pd
+data = pd.read_csv('film_94_add.csv', sep = ';', skipinitialspace = True)
+#print(data.head()) #вывод первых 5 строк для проверки, верно ли загружен csv в dataframe
+#s = data[['s1', 's2']].sum(axis=1) #складываем столбцы под названием s1 и s2
 
+
+#print(data.columns.tolist()) # посмотреть названия столбцов
+#print(data) # вывод всего dataframe
+
+
+data1 = pd.read_csv('film_94_nonadd.csv', sep = ';', skipinitialspace = True)
+
+result = data[['s2']] - data1[['s2']]
+print(result)
+
+'''if result!=0:
+    print(data[['State']])'''
+
+
+
+
+'''import csv
+S = []
+C = ''
 with open("film_94_add.csv", encoding='utf-8') as add_file:
     # Создаем объект reader, указываем символ-разделитель ","
-    file_reader = csv.reader(add_file, delimiter = ";")
+    file_reader = csv.reader(add_file, delimiter = ";", skipinitialspace = True)
     # Счетчик для подсчета количества строк и вывода заголовков столбцов
     cnt = 0
     # Считывание данных из CSV файла
@@ -11,11 +33,15 @@ with open("film_94_add.csv", encoding='utf-8') as add_file:
             # Вывод строки, содержащей заголовки для столбцов
             print(f'Файл содержит столбцы: {", ".join(row)}')
         else:
-            # Вывод строк
-            print(f'{row[8]} {row[9]}')
-            #res = float(row[8]) + float(row[9])
-            #print(res)
+            # Пишем строку в список
+            S.append(float(row))
+            print(row[1])
         cnt += 1
+    print(S)
+    print(cnt)
+    
+S = S.split()
+print(S)
 
     with open("film_94_nonadd.csv", encoding='utf-8') as non_add_file:
         # Создаем объект reader, указываем символ-разделитель ","
@@ -29,15 +55,9 @@ with open("film_94_add.csv", encoding='utf-8') as add_file:
                 print(f'Файл содержит столбцы: {", ".join(row1)}')
             else:
                 # Вывод строк
-                print(f'{row1[8]} {row1[9]}')
-                #res = float(row[8]) + float(row[9])
-                #print(res)
+                C+=str(row1)
             cnt1 += 1
 
-        res = 0
-        for row1 in file_reader1:
-            res = float(row[8]) + float(row1[8])
-            print(res)
 
 
    
@@ -45,7 +65,7 @@ with open("film_94_add.csv", encoding='utf-8') as add_file:
 
 
 
-'''
+
 add = []
 non_add = []
 cnt = 0
