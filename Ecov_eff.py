@@ -15,6 +15,7 @@ for i in range (8, 13):
     #data_add.iloc[8, 13] #- data_nonadd.iloc[8, 13]
 
 
+
 print(result)
     
 '''result = data_add[['s4']] - data_nonadd[['s4']] # находим разницу между колонками с энергиями
