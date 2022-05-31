@@ -10,14 +10,16 @@ data_add = pd.read_csv('film_94_add.csv', sep = ';', skipinitialspace = True)
 
 data_nonadd = pd.read_csv('film_94_nonadd.csv', sep = ';', skipinitialspace = True)
 
-for i in range (8, 13):
-    #result = data_add.columns.get_lock()[i] - data_nonadd.columns.get_lock()[i]
-    result = data_add['s1':'s6'].ilock[i]
-    #data_add.iloc[8, 13] #- data_nonadd.iloc[8, 13]
+for index, row in data_add.iterrows():
+    result = data_add - data_nonadd
 
-
-
+    
 print(result)
+
+print(result[result.eq(0)].stack().reset_index())
+
+
+
     
 '''result = data_add[['s4']] - data_nonadd[['s4']] # находим разницу между колонками с энергиями
 
