@@ -1,4 +1,5 @@
 import pandas as pd
+
 data_add = pd.read_csv('film_94_add.csv', sep = ';', skipinitialspace = True)
 
 data_nonadd = pd.read_csv('film_94_nonadd.csv', sep = ';', skipinitialspace = True)
@@ -16,6 +17,7 @@ def differ(result, df):
         idx = result[result[S]!=0].index # находим индексы ненулевых элементов в базе разницы между адд и неадд энергиями
 
 
+
         # ищем окружение для неаддитивных состояний
         for i in idx: # перебираем все строки в базе индексов ненулевых элементов
             E = 'E' + str(j) 
@@ -29,6 +31,5 @@ def differ(result, df):
         S = 's' # обнуляем название колонки
 
 
+
 differ(result, data_nonadd)    # передаем результат вычитания баз энергий и неаддитивную базу в функцию
-
-
