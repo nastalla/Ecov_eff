@@ -1,10 +1,5 @@
 import pandas as pd
 data_add = pd.read_csv('film_94_add.csv', sep = ';', skipinitialspace = True)
-#print(data_add.head()) #вывод первых 5 строк для проверки, верно ли загружен csv в dataframe
-
-#print(data_add.columns.tolist()) # посмотреть названия столбцов
-#print(data_add) # вывод всего dataframe
-
 
 data_nonadd = pd.read_csv('film_94_nonadd.csv', sep = ';', skipinitialspace = True)
 
@@ -12,36 +7,28 @@ data_nonadd = pd.read_csv('film_94_nonadd.csv', sep = ';', skipinitialspace = Tr
 for index, row in data_add.iterrows():
     result = data_add - data_nonadd
 
-def differ(result, df, S):
-  idx = result[result[S]!=0].index
-  print(df[S].iloc(idx))
+# Функция для поиска индексов неаддитивных значений и вывода самих значений
+def differ(result, df):
+    E = ''
+    S = 's' # заготовка для названия колонок
+    for j in range(1, 7):   # перебираем все колонки s[i]
+        S = S + str(j)
+        idx = result[result[S]!=0].index # находим индексы ненулевых элементов в базе разницы между адд и неадд энергиями
 
-S = ''
-S = 's1'
-differ(result, data_nonadd, S)
+
+        # ищем окружение для неаддитивных состояний
+        for i in idx: # перебираем все строки в базе индексов ненулевых элементов
+            E = 'E' + str(j) 
+            for k in range(1, 7):
+                # условие - если количество соседей не равно 0, то выводим это число соседей:
+                if df['n'+str(k)].iloc[i]!=0:
+                    E = E + '-' + str(df['n'+str(k)].iloc[i])+ '*n' + str(k)
+            E = E + '='+str(df[S].iloc[i]) # добавляем значение неаддитивной энергии для данного окружения
+            print(E)
+            E = 'E' + str(j) + '-'
+        S = 's' # обнуляем название колонки
 
 
-'''# Находим индекс отличающихся элементов
+differ(result, data_nonadd)    # передаем результат вычитания баз энергий и неаддитивную базу в функцию
 
-idx1 = result[result['s1']!=0].index
-idx2 = result[result['s2']!=0].index
-idx3 = result[result['s3']!=0].index
-idx4 = result[result['s4']!=0].index
-idx5 = result[result['s5']!=0].index
-idx6 = result[result['s6']!=0].index
 
-print(data_nonadd['s1'].iloc[idx1])
-print(data_nonadd['s2'].iloc[idx2])
-print(data_nonadd['s3'].iloc[idx3])
-print(data_nonadd['s4'].iloc[idx4])
-print(data_nonadd['s5'].iloc[idx5])
-print(data_nonadd['s6'].iloc[idx6])
-
-S = ''
-
-for i in idx1:
-    S = 'E = 1-' + str(data_nonadd['n1'].iloc[i])+ '*n1-' + str(data_nonadd['n2'].iloc[i])+ '*n2-'+ str(data_nonadd['n3'].iloc[i]) + '*n3-' + str(data_nonadd['n4'].iloc[i]) + '*n4-'+ str(data_nonadd['n5'].iloc[i]) + '*n5-' + str(data_nonadd['n6'].iloc[i])+'='+str(data_nonadd['s1'].iloc[i])
-    print(S)
-'''
-
-    
