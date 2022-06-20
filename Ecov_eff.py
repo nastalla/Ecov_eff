@@ -6,7 +6,7 @@ from tkinter import messagebox
 
 # Функция для поиска индексов неаддитивных значений и вывода самих значений
 def differ():
-    n = int(number_sort_text.get(1.0, END)) # число сортов атомов берем из поля ввода
+    n = int(number_sort_text.get()) # число сортов атомов берем из поля ввода
     data_add = pd.read_csv(file_add, sep = ';', skipinitialspace = True) #'film_94_add.csv'
     data_nonadd = pd.read_csv(file_nonadd, sep = ';', skipinitialspace = True) # 'film_94_nonadd.csv'
 
@@ -104,7 +104,7 @@ def sort_input():
 def sort(event):
     global sort_inputs
     sort_inputs = [] # массив сортов
-    n = int(number_sort_text.get(1.0, END))
+    n = int(number_sort_text.get())
     for i in range (1, (n+1)):
         sort_text = Text(window, width = 10, height = 1)
         sort_text.place(x = 150, y = 30+i*30)
@@ -122,12 +122,11 @@ label1.config(font = ("Arial", 12), justify = LEFT)
 label1.place(x = 10, y = 10)
 
 # Поле ввода для числа сортов
-number_sort_text = Text(window, width = 5, height = 1)
+number_sort_text = Entry()
 number_sort_text.place(x = 200, y = 15)
 number_sort_text.focus_set()
 
 number_sort_text.bind('<Return>', sort)
-
 
 
 
